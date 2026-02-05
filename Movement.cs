@@ -3,10 +3,10 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [Header("Fuel Settings")]
-    public float maxFuel = 100f;
-    public float currentFuel = 100f;
-    public float fuelBurnRate = 3f;
-    public float turnFuelCost = 1f;
+    public float maxFuel = 100f; // Total Fuel
+    public float currentFuel = 100f; // Current Fuel (Updated)
+    public float fuelBurnRate = 3f; // Fuel burn rate when moving forward or back
+    public float turnFuelCost = 1f; // Fuel burn when turning
 
     [Header("Speed Settings")]
     public float maxSpeed = 5f;        // Fastest speed possible
@@ -43,7 +43,8 @@ public class Movement : MonoBehaviour
             currentFuel -= fuelBurnRate * Time.deltaTime;
         }   
 
-        // Never let speed or fuel go under 0, or over their max
+        // Never let speed fuel go over their max. 
+        // Speed can go reverse up to -2, fuel can't go under 0
         currentSpeed = Mathf.Clamp(currentSpeed, -2, maxSpeed);
 
         currentFuel = Mathf.Clamp(currentFuel, 0, maxFuel);
